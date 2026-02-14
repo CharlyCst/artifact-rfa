@@ -13,6 +13,10 @@ bl32_fvp.bin bl33_fvp.bin &: rusted-firmware-a
 	rust-objcopy -O binary rusted-firmware-a/target/aarch64-unknown-none-softfloat/release/bl32 bl32_fvp.bin
 	rust-objcopy -O binary rusted-firmware-a/target/aarch64-unknown-none-softfloat/release/bl33 bl33_fvp.bin
 
+.PHONY: setup
+setup: rusted-firmware-a
+	cd rusted-firmware-a && rustup component add llvm-tools-preview
+
 .PHONY: clean
 clean:
 	rm -rf trusted-firmware-a *.bin
